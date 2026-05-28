@@ -11,8 +11,8 @@ function Brokerage() {
           </a>
 
           <ul
-            style={{ textAlign: "left", lineHeight: "2.5", fontSize: "12px" }}
-            className="text-muted"
+            style={{ textAlign: "left", lineHeight: "2.5", fontSize: "17px" }}
+            className="text-muted ms-5 "
           >
             <li>
               Call & Trade services may include additional charges per order.
