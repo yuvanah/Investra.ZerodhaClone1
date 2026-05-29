@@ -1,43 +1,72 @@
-const Menu = () => {
-  const handleProfileClick = () => {};
 
+import {useState} from "react";
+import {Link} from "react-router-dom";
+
+const Menu = () => {
+
+  const[selectedManu,setSelectedMenu] = useState(0);
+   const[isProfileDropdownOpen,setIsProfileDropdownOpen] = useState(false);
+
+   const handleMenuClick = (index) => {
+    setSelectedMenu(index);
+   };
+  const handleProfileClick = (index) => {
+    setIsProfileDropdownOpen(!isProfileDropdownOpen);
+  };
+
+  const menuClass = "menu";
+  const activeMenuClass = "active-menu";
+  
   return (
     <div className="menu-container">
       <img src="/logo.png" alt="logo" style={{ width: "50px" }} />
 
-      <div className="menus">
-        <ul>
+      <div className="menus ">
+        <ul className="border-end">
           <li>
-            <p>Dashboard</p>
+           <Link style={{textDecoration:"none"}} to="/"  onClick={() => handleMenuClick(0)}>
+             <p className={selectedManu === 0 ? activeMenuClass : menuClass}>Dashboard</p>
+           </Link>
           </li>
 
           <li>
-            <p>Orders</p>
+             <Link style={{textDecoration:"none"}} to="/orders"  onClick={() => handleMenuClick(1)}>
+             <p className={selectedManu === 1 ? activeMenuClass : menuClass}>Orders</p>
+           </Link>
           </li>
 
           <li>
-            <p>Holdings</p>
+           <Link style={{textDecoration:"none"}} to="/holdings"  onClick={() => handleMenuClick(2)}>
+             <p className={selectedManu === 2 ? activeMenuClass : menuClass}>Holdings</p>
+           </Link>
           </li>
 
           <li>
-            <p>Positions</p>
+             <Link style={{textDecoration:"none"}} to="/positions"  onClick={() => handleMenuClick(3)}>
+             <p className={selectedManu === 3 ? activeMenuClass : menuClass}>Positions</p>
+           </Link>
           </li>
 
           <li>
-            <p>Funds</p>
+              <Link style={{textDecoration:"none"}} to="/funds"  onClick={() => handleMenuClick(4)}>
+             <p className={selectedManu === 4 ? activeMenuClass : menuClass}>Funds</p>
+           </Link>
           </li>
 
           <li>
-            <p>Apps</p>
+               <Link style={{textDecoration:"none"}} to="/apps"  onClick={() => handleMenuClick(5)}>
+             <p className={selectedManu === 5 ? activeMenuClass : menuClass}>Apps</p>
+           </Link>
           </li>
         </ul>
 
         <hr />
 
-        <div className="profile" onClick={handleProfileClick}>
+        <div className="profile  " onClick={handleProfileClick}>
           <div className="avatar">ZU</div>
           <p className="username">USERID</p>
         </div>
+        {isProfileDropdownOpen }
       </div>
     </div>
   );
