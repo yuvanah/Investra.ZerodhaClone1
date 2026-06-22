@@ -6,7 +6,7 @@ const Holdings = () => {
     <>
       <h3 className="title">Holdings ({holdings.length})</h3>
 
-      <div className="order-table">
+      <div className="order-table ">
         <table>
           <thead>
             <tr>

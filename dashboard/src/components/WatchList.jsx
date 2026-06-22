@@ -18,7 +18,7 @@ const WatchList = () => {
           name="search"
           id="search"
           placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
-          className="search"
+          className="search "
         />
         <span className="counts">{watchlist.length} / 50</span>
       </div>
@@ -57,14 +57,10 @@ const WatchListItem = ({ stock }) => {
           {stock.name}
         </p>
 
-        <div className="itemInfo">
+        <div className="item-info ">
           <span className="percent">{stock.percent}</span>
 
-          {stock.isDown ? (
-            <KeyboardArrowDown className="down" />
-          ) : (
-            <KeyboardArrowUp className="up" />
-          )}
+          {stock.isDown ? ( <KeyboardArrowDown className="down" />  ) : ( <KeyboardArrowUp className="up" /> )}
 
           <span className="price">{stock.price}</span>
         </div>
@@ -78,7 +74,7 @@ const WatchListItem = ({ stock }) => {
 
 const WatchListActions = ({ uid }) => {
   return (
-    <span className="actions">
+    <span className="actions ">
       <span>
         <Tooltip
           title="Buy"
@@ -100,7 +96,7 @@ const WatchListActions = ({ uid }) => {
 
         <Tooltip
           title="Analytics (A)"
-          placement="top"
+          placement="top" 
           arrow
           slots={{ transition: Grow }}
         >
