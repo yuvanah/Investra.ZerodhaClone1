@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
-     
   },
-  
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,9 +14,12 @@
     "nodemon": "^3.1.14"
   },
   "dependencies": {
+    "body-parser": "^2.3.0",
+    
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    
     "mongoose": "^9.7.2",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
