@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 const Holdings = require("./model/HoldingsModel");
 const Positions = require("./model/PositionsModel")
 const Orders = require("./model/OrdersModel");
+const authRoute = require("./Routes/AuthRoute");
 const cors = require("cors");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 
 const app = express();
@@ -16,16 +18,29 @@ const url = process.env.MONGO_URL;
 main().catch(err => console.log(`${err.message} !! DataBased not connected `));
 
 async function main() {
-  await mongoose.connect(url);
+  await mongoose.connect(url); 
   console.log("Database connected");
 }
 
 
 
+app.use(
+  cors({
+    origin: [
+      `http://localhost:${port}`,
+      "http://localhost:5173",
 
 
-app.use(cors());
-app.use(bodyParser.json());
+    ],
+    credentials: true,
+  })
+);
+
+app.use(cookieParser());
+app.use(express.json());
+app.use("/", authRoute);
+
+
 
 
 app.get('/allHoldings',async(req,res)=>{
