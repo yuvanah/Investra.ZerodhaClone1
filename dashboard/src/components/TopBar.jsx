@@ -1,6 +1,6 @@
 import Menu from "./Menu";
 
-const TopBar = () => {
+const TopBar = ({Logout,Username}) => {
   return (
     <div className="topbar-container">
       <div className="indices-container">
@@ -17,7 +17,7 @@ const TopBar = () => {
         </div>
       </div>
 
-      <Menu />
+      <Menu Logout = {Logout}  Username = {Username}  />
     </div>
   );
 };

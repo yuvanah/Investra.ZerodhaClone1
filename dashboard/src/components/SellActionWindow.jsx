@@ -18,7 +18,7 @@ function SellActionWindow({ uid, closeSellWindow }) {
         qty: Number(stockQuantity),
         price: Number(stockPrice),
         mode: "SELL",
-      });
+      },{withCredentials: true});
 
       closeSellWindow();
     } catch (err) {

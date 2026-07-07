@@ -2,7 +2,8 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 
-const Menu = () => {
+
+const Menu = ({Logout,Username}) => {
 
   const[selectedManu,setSelectedMenu] = useState(0);
    const[isProfileDropdownOpen,setIsProfileDropdownOpen] = useState(false);
@@ -63,10 +64,13 @@ const Menu = () => {
         <hr />
 
         <div className="profile  " onClick={handleProfileClick}>
-          <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
+          <div className="avatar">{Username.slice(0,2).toUpperCase()}</div>
+          <p className="username">{Username}</p>
+          {isProfileDropdownOpen  && (
+            <p className="username ms-3"><i class="fa-solid fa-right-from-bracket" onClick={Logout} ></i></p>
+          )}
         </div>
-        {isProfileDropdownOpen }
+        
       </div>
     </div>
   );

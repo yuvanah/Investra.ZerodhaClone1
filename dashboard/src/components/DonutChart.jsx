@@ -4,7 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DonutChart = ({ data }) => {
-  console.log(data);
+
   return <Doughnut data={data} />;
 };
 

@@ -13,7 +13,7 @@ function BuyActionWindow({ uid, closeBuyWindow }) {
         qty: Number(stockQuantity),
         price: Number(stockPrice),
         mode: "BUY",
-      });
+      },{withCredentials: true});
 
       closeBuyWindow();
     } catch (err) {

@@ -257,6 +257,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .logo {
@@ -866,4 +867,7 @@ hr {
   background-color: rgb(212, 212, 212);
 }
 
+.avatar {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 

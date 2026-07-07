@@ -9,17 +9,18 @@ const Holdings = () => {
 
   const [allholdings,setAllHoldings] = useState([]);
   
-  useEffect(()=>{
-  
-   const res =    axios.get("http://localhost:8080/allHoldings").then((res)=>{
-     
-    setAllHoldings(res.data);
-   })
-
-
-
-   
-  },[]);
+useEffect(() => {
+  axios
+    .get("http://localhost:8080/allHoldings", {
+      withCredentials: true,
+    })
+    .then((res) => {
+      setAllHoldings(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, []);
 
 
    const labels = allholdings.map((sub)=>sub["name"]);

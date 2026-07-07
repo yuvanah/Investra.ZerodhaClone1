@@ -9,9 +9,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
-
 const app = express();
-
+const { checkVerify } = require("./Middlewares/AuthMiddleware");
 const port = process.env.PORT || 8080; // NEED to put port like this, cause it will be used for aws deployment
 const url = process.env.MONGO_URL;
 
@@ -43,25 +42,25 @@ app.use("/", authRoute);
 
 
 
-app.get('/allHoldings',async(req,res)=>{
+app.get('/allHoldings',checkVerify,async(req,res)=>{
    let allHoldings = await Holdings.find({});
 
    res.send(allHoldings)
 });
 
-app.get('/allPositions',async(req,res)=>{
+app.get('/allPositions',checkVerify,async(req,res)=>{
    let allPositions = await Positions.find({});
   
    res.send(allPositions);
 });
 
-app.get("/Orders",async(req,res)=>{
+app.get("/Orders",checkVerify,async(req,res)=>{
   let allOrders = await Orders.find({});
   res.send(allOrders)
 
 })
 
-app.post("/newOrder", async (req, res) => {
+app.post("/newOrder",checkVerify, async (req, res) => {
   let newOrder = new Orders({
     name: req.body.name,
     qty: req.body.qty,

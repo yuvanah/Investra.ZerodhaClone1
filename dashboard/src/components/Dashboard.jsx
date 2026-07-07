@@ -13,7 +13,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <GeneralContextProvider>
-        <Watchlist />
+        <Watchlist  />
  </GeneralContextProvider>
         <div className="content">
           <Routes>

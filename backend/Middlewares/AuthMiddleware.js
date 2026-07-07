@@ -17,4 +17,28 @@ module.exports.userVerification = (req, res) => {
       else return res.json({ status: false })
     }
   })
-}
+};
+
+module.exports.checkVerify = (req, res, next) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+        return res.status(401).json({
+            success: false,
+            message: "Please login first",
+        });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+
+        req.user = decoded;
+
+        next();
+    } catch (err) {
+        return res.status(401).json({
+            success: false,
+            message: "Invalid or expired token",
+        });
+    }
+};
