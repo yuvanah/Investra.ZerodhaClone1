@@ -6,14 +6,14 @@ import Holdings from "./Holdings";
 import Orders from "./Orders";
 import Position from "./Position";
 import Summary from "./Summary";
-import Watchlist from "./Watchlist";
+import WatchList from "./WatchList";
 import { GeneralContextProvider } from "./GeneralContext";
 
 const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <GeneralContextProvider>
-        <Watchlist  />
+        <WatchList  />
  </GeneralContextProvider>
         <div className="content">
           <Routes>
