@@ -48,7 +48,7 @@ function Universe() {
         {/* Row 2 */}
         <div className="col-4 p-3 mt-5">
           <img
-            src="media/images/zerodhaFundhouse.png"
+            src="media/images/zerodhaFundhouse2.png"
             style={{ width: "150px", height: "60px", objectFit: "contain" }}
             alt="fundhouse"
           />

@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
 
 const HoldingsSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+
   name: {
     type: String,
     required: true,
@@ -20,17 +25,19 @@ const HoldingsSchema = new mongoose.Schema({
 
   price: {
     type: Number,
-    default: 0,
+    default: function () {
+      return this.avg;
+    },
   },
 
   net: {
     type: String,
-    default: "0%",
+    default: () => `${(Math.random() * 20 - 10).toFixed(2)}%`, // -10% to +10%
   },
 
   day: {
     type: String,
-    default: "0%",
+    default: () => `${(Math.random() * 6 - 3).toFixed(2)}%`, // -3% to +3%
   },
 });
 

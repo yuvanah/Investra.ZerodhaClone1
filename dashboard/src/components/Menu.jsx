@@ -55,8 +55,8 @@ const Menu = ({Logout,Username}) => {
           </li>
 
           <li>
-               <Link style={{textDecoration:"none"}} to="/apps"  onClick={() => handleMenuClick(5)}>
-             <p className={selectedManu === 5 ? activeMenuClass : menuClass}>Apps</p>
+               <Link style={{textDecoration:"none"}} to="/news"  onClick={() => handleMenuClick(5)}>
+             <p className={selectedManu === 5 ? activeMenuClass : menuClass}>News</p>
            </Link>
           </li>
         </ul>

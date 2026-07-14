@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="180" viewBox="0 0 700 180">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon -->
+  <g transform="translate(20,20)">
+    <rect x="0" y="0" rx="24" ry="24" width="120" height="120" fill="url(#g)"/>
+    <!-- Stylized upward trend / I -->
+    <path d="M28 82 L55 55 L73 73 L95 38"
+          fill="none"
+          stroke="white"
+          stroke-width="10"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <circle cx="95" cy="38" r="6" fill="white"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="170" y="100"
+        font-family="Inter, Segoe UI, Arial, sans-serif"
+        font-size="64"
+        font-weight="700"
+        fill="#2563EB"
+        letter-spacing="1">
+    INVESTRA
+  </text>
+</svg>

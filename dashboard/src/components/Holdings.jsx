@@ -36,6 +36,27 @@ useEffect(() => {
   ]
  }
 
+ const totalInvestment = allholdings.reduce(
+  (sum, stock) => sum + stock.avg * stock.qty,
+  0
+);
+
+const currentValue = allholdings.reduce(
+  (sum, stock) => sum + stock.price * stock.qty,
+  0
+);
+
+const totalPnL = currentValue - totalInvestment;
+
+const pnlPercentage =
+  totalInvestment === 0
+    ? 0
+    : (totalPnL / totalInvestment) * 100;
+
+const pnlClass = totalPnL >= 0 ? "profit" : "loss";
+
+
+
   return (
     <>
       <h3 className="title">Holdings ({allholdings.length || 0})</h3>
@@ -69,7 +90,7 @@ useEffect(() => {
                   <td>{currValue.toFixed(2)}</td>
 
                   <td className={profClass}>
-                    {(currValue - stock.avg * stock.qty).toFixed(2)}
+                    {(currValue - stock.avg * stock.qty).toFixed(2)} 
                   </td>
 
                   <td className={profClass}>{stock.net}</td>
@@ -84,26 +105,28 @@ useEffect(() => {
         </table>
       </div>
 
-      <div className="row">
-        <div className="col">
-          <h5>
-            29,875.<span>55</span>
-          </h5>
-          <p>Total investment</p>
-        </div>
+     <div className="row">
+  <div className="col">
+    <h5>
+      ₹{totalInvestment.toFixed(2)}
+    </h5>
+    <p>Total Investment</p>
+  </div>
 
-        <div className="col">
-          <h5>
-            31,428.<span>95</span>
-          </h5>
-          <p>Current value</p>
-        </div>
+  <div className="col">
+    <h5>
+      ₹{currentValue.toFixed(2)}
+    </h5>
+    <p>Current Value</p>
+  </div>
 
-        <div className="col">
-          <h5>1,553.40 (+5.20%)</h5>
-          <p>P&amp;L</p>
-        </div>
-      </div>
+  <div className="col">
+    <h5 className={pnlClass}>
+      ₹{totalPnL.toFixed(2)} ({pnlPercentage.toFixed(2)}%)
+    </h5>
+    <p>P&amp;L</p>
+  </div>
+</div>
 
      <VerticalGraph data = {data}/>
     </>

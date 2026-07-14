@@ -11,9 +11,14 @@ function Team() {
       >
         <div className="col-6 p-3 text-center">
           <img
-            src="media/images/nithinKamath.jpg"
-            style={{ borderRadius: "100%", width: "50%" }}
-          />
+          src="media/images/image.png"
+         className="rounded-circle"
+            style={{
+             width: "250px",
+             height: "250px",
+            objectFit: "cover",
+  }}
+/>
           <h4 className="mt-5">Arjun Mehta</h4>
           <h6>Founder, CEO</h6>
         </div>

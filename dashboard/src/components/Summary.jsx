@@ -1,31 +1,83 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 const Summary = () => {
+  const [wallet, setWallet] = useState(0);
+  const [username, setUsername] = useState("");
+  const [allHoldings, setAllHoldings] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/wallet", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setWallet(res.data.wallet);
+        setUsername(res.data.username);
+      });
+
+    axios
+      .get("http://localhost:8080/allHoldings", {
+        withCredentials: true,
+      })
+      .then((res) => setAllHoldings(res.data));
+
+    axios
+      .get("http://localhost:8080/Orders", {
+        withCredentials: true,
+      })
+      .then((res) => setAllOrders(res.data));
+  }, []);
+
+  const totalInvestment = allHoldings.reduce(
+    (sum, stock) => sum + stock.avg * stock.qty,
+    0
+  );
+
+  const currentValue = allHoldings.reduce(
+    (sum, stock) => sum + stock.price * stock.qty,
+    0
+  );
+
+  const pnl = currentValue - totalInvestment;
+
+  const pnlClass = pnl >= 0 ? "profit" : "loss";
+
+  const totalStocks = allHoldings.reduce(
+    (sum, stock) => sum + stock.qty,
+    0
+  );
+
   return (
     <>
       <div className="username">
-        <h6>Hi, User!</h6>
+        <h6>Hi, {username} 👋</h6>
         <hr className="divider" />
       </div>
 
+      {/* Wallet */}
+
       <div className="section">
         <span>
-          <p>Equity</p>
+          <p>Wallet</p>
         </span>
 
         <div className="data">
           <div className="first">
-            <h3>3.74k</h3>
-            <p>Margin available</p>
+            <h3>₹{wallet.toFixed(2)}</h3>
+            <p>Available Balance</p>
           </div>
 
           <hr />
 
           <div className="second">
             <p>
-              Margins used <span>0</span>
+              Account Status <span>Active</span>
             </p>
 
             <p>
-              Opening balance <span>3.74k</span>
+              Orders <span>{allOrders.length}</span>
             </p>
           </div>
         </div>
@@ -33,29 +85,43 @@ const Summary = () => {
         <hr className="divider" />
       </div>
 
+      {/* Portfolio */}
+
       <div className="section">
         <span>
-          <p>Holdings (13)</p>
+          <p>Portfolio</p>
         </span>
 
         <div className="data">
           <div className="first">
-            <h3 className="profit">
-              1.55k <small>+5.20%</small>
+            <h3 className={pnlClass}>
+              ₹{pnl.toFixed(2)}
             </h3>
 
-            <p>P&amp;L</p>
+            <p>Total P&amp;L</p>
           </div>
 
           <hr />
 
           <div className="second">
             <p>
-              Current Value <span>31.43k</span>
+              Current Value
+              <span>₹{currentValue.toFixed(2)}</span>
             </p>
 
             <p>
-              Investment <span>29.88k</span>
+              Investment
+              <span>₹{totalInvestment.toFixed(2)}</span>
+            </p>
+
+            <p>
+              Holdings
+              <span>{allHoldings.length}</span>
+            </p>
+
+            <p>
+              Stocks Owned
+              <span>{totalStocks}</span>
             </p>
           </div>
         </div>

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -7,24 +7,32 @@ const userSchema = new mongoose.Schema({
     required: [true, "Your email address is required"],
     unique: true,
   },
+
   username: {
     type: String,
     required: [true, "Your username is required"],
   },
+
   password: {
     type: String,
     required: [true, "Your password is required"],
   },
+
+  wallet: {
+    type: Number,
+    default: 100000,
+  },
+
   createdAt: {
     type: Date,
-    default: new Date(),
+    default: Date.now,
   },
 });
-//unlike our rest of models
-// for user. we are making schema and model here itself
 
-
+// Hash password before saving
 userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+
   this.password = await bcrypt.hash(this.password, 12);
 });
 

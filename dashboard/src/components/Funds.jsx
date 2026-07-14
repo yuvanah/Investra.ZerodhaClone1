@@ -1,105 +1,184 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Funds = () => {
+  const [wallet, setWallet] = useState(0);
+  const [allHoldings, setAllHoldings] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/wallet", {
+        withCredentials: true,
+      })
+      .then((res) => setWallet(res.data.wallet))
+      .catch((err) => console.log(err));
+
+    axios
+      .get("http://localhost:8080/allHoldings", {
+        withCredentials: true,
+      })
+      .then((res) => setAllHoldings(res.data))
+      .catch((err) => console.log(err));
+
+    axios
+      .get("http://localhost:8080/Orders", {
+        withCredentials: true,
+      })
+      .then((res) => setAllOrders(res.data))
+      .catch((err) => console.log(err));
+
+    axios
+    .get("http://localhost:8080/wallet", {
+      withCredentials: true,
+    })
+    .then((res) => {
+      setWallet(res.data.wallet);
+    })
+    .catch((err) => console.log(err));
+  }, []);
+
+  const totalHoldings = allHoldings.length;
+
+  const totalStocks = allHoldings.reduce(
+    (sum, stock) => sum + stock.qty,
+    0
+  );
+
+  const totalOrders = allOrders.length;
+
+  const buyOrders = allOrders.filter(
+    (order) => order.mode === "BUY"
+  ).length;
+
+  const sellOrders = allOrders.filter(
+    (order) => order.mode === "SELL"
+  ).length;
+
   return (
     <>
-      <div className="funds">
-        <p>Instant, zero-cost fund transfers with UPI</p>
+      <h3 className="title">Funds</h3>
 
-        <Link to="#" className="btn btn-green">
-          Add funds
+      {/* Wallet */}
+
+      <div
+        style={{
+          background: "linear-gradient(135deg,#387ed1,#5ba4ff)",
+          borderRadius: "12px",
+          padding: "30px",
+          color: "white",
+          marginBottom: "40px",
+          boxShadow: "0 10px 25px rgba(0,0,0,.12)",
+        }}
+      >
+        <h5 style={{ color: "#f5f5f5", marginBottom: "10px" }}>
+          Wallet Balance
+        </h5>
+
+        <h1
+          style={{
+            fontSize: "3rem",
+            marginBottom: "25px",
+          }}
+        >
+          ₹{wallet.toFixed(2)}
+        </h1>
+
+        <Link
+          to="#"
+          className="btn btn-green"
+          style={{ marginRight: "15px" }}
+        >
+          Add Funds
         </Link>
 
-        <Link to="#" className="btn btn-blue">
+        <Link to="#" className="btn btn-light">
           Withdraw
         </Link>
       </div>
 
+    
+
       <div className="row">
         <div className="col">
-          <span>
-            <p>Equity</p>
-          </span>
+          <h4 style={{ marginBottom: "20px" }}>
+            Portfolio Summary
+          </h4>
 
           <div className="table">
             <div className="data">
-              <p>Available margin</p>
-              <p className="imp colored">4,043.10</p>
+              <p>Total Holdings</p>
+              <p className="imp">{totalHoldings}</p>
             </div>
 
             <div className="data">
-              <p>Used margin</p>
-              <p className="imp">3,757.30</p>
+              <p>Stocks Owned</p>
+              <p className="imp">{totalStocks}</p>
             </div>
 
             <div className="data">
-              <p>Available cash</p>
-              <p className="imp">4,043.10</p>
-            </div>
-
-            <hr />
-
-            <div className="data">
-              <p>Opening Balance</p>
-              <p>4,043.10</p>
-            </div>
-
-            <div className="data">
-              <p>Opening Balance</p>
-              <p>3736.40</p>
-            </div>
-
-            <div className="data">
-              <p>Payin</p>
-              <p>4064.00</p>
-            </div>
-
-            <div className="data">
-              <p>SPAN</p>
-              <p>0.00</p>
-            </div>
-
-            <div className="data">
-              <p>Delivery margin</p>
-              <p>0.00</p>
-            </div>
-
-            <div className="data">
-              <p>Exposure</p>
-              <p>0.00</p>
-            </div>
-
-            <div className="data">
-              <p>Options premium</p>
-              <p>0.00</p>
+              <p>Total Orders</p>
+              <p className="imp">{totalOrders}</p>
             </div>
 
             <hr />
 
             <div className="data">
-              <p>Collateral (Liquid funds)</p>
-              <p>0.00</p>
+              <p>Buy Orders</p>
+              <p className="profit">{buyOrders}</p>
             </div>
 
             <div className="data">
-              <p>Collateral (Equity)</p>
-              <p>0.00</p>
+              <p>Sell Orders</p>
+              <p className="loss">{sellOrders}</p>
             </div>
 
             <div className="data">
-              <p>Total Collateral</p>
-              <p>0.00</p>
+              <p>Portfolio Status</p>
+              <p className="profit">Active</p>
             </div>
           </div>
         </div>
 
         <div className="col">
-          <div className="commodity">
-            <p>You don't have a commodity account</p>
+          <div
+            style={{
+              border: "1px solid #eee",
+              borderRadius: "10px",
+              padding: "25px",
+              background: "#fff",
+              boxShadow: "0 5px 15px rgba(0,0,0,.05)",
+            }}
+          >
+            <h4 style={{ marginBottom: "20px" }}>
+              Trading Insights
+            </h4>
 
-            <Link to="#" className="btn btn-blue">
-              Open Account
-            </Link>
+            <div className="data">
+              <p>Holdings Diversification</p>
+              <p>{totalHoldings} Stocks</p>
+            </div>
+
+            <div className="data">
+              <p>Trading Activity</p>
+              <p>{totalOrders} Orders</p>
+            </div>
+
+            <div className="data">
+              <p>Most Used Action</p>
+              <p>
+                {buyOrders >= sellOrders ? "Buying" : "Selling"}
+              </p>
+            </div>
+
+            <hr />
+
+            <p style={{ color: "#777", lineHeight: "1.8" }}>
+              Your wallet is used for buying stocks. Whenever
+              you sell a stock, the amount is automatically
+              credited back to your wallet.
+            </p>
           </div>
         </div>
       </div>

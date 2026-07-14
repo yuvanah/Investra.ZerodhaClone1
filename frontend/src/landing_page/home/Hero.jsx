@@ -4,7 +4,7 @@ function Hero() {
       <div className="row text-center">
         <img
           src="media/images/homeHero.png"
-          alt="Investra platform preview"
+          alt="Hero Image"
           className="mb-5"
         />
 
