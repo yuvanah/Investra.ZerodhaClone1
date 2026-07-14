@@ -5,11 +5,18 @@ import axios from 'axios';
 const Positions = () => {
     const [allpositions,setAllPositions] = useState([]);
 
-    useEffect(()=>{
-      axios.get("http://localhost:8080/allPositions",{ withCredentials: true}).then((res)=>{
-        setAllPositions(res.data);
-      })
+    useEffect(() => {
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/allPositions`, {
+      withCredentials: true,
     })
+    .then((res) => {
+      setAllPositions(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, []);
   return (
     <>
       <h3 className="title">Positions ({allpositions.length})</h3>

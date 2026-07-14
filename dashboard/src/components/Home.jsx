@@ -10,29 +10,30 @@ const Home = () => {
   const [cookies, removeCookie] = useCookies([]);
   const [username, setUsername] = useState("");
 
-  useEffect(() => {
-    const verifyCookie = async () => {
-      if (!cookies.token) {
-        navigate("/login");
-      }
+ useEffect(() => {
+  const verifyCookie = async () => {
+    if (!cookies.token) {
+      navigate("/login");
+      return;
+    }
 
-      const { data } = await axios.post(
-        "http://localhost:8080",
-        {},
-        { withCredentials: true }
-      );
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}`,
+      {},
+      { withCredentials: true }
+    );
 
-      const { status, user } = data;
-      setUsername(user);
+    const { status, user } = data;
+    setUsername(user);
 
-      if (!status) {
-        removeCookie("token");
-        navigate("/login");
-      }
-    };
+    if (!status) {
+      removeCookie("token");
+      navigate("/login");
+    }
+  };
 
-    verifyCookie();
-  }, [cookies, navigate, removeCookie]);
+  verifyCookie();
+}, [cookies, navigate, removeCookie]);
 
   const Logout = () => {
     removeCookie("token");

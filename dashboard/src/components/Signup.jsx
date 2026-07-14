@@ -33,12 +33,14 @@ const Signup = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/signup",
-        {
-          ...inputValue,
-        },
-        { withCredentials: true }
-      );
+  `${import.meta.env.VITE_API_URL}/signup`,
+  {
+    ...inputValue,
+  },
+  {
+    withCredentials: true,
+  }
+);
       const { success, message } = data;
       if (success) {
         handleSuccess(message);

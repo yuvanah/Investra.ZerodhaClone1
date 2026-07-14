@@ -8,12 +8,18 @@ function BuyActionWindow({ uid, closeBuyWindow }) {
 
   const handleBuyClick = async () => {
     try {
-      await axios.post("http://localhost:8080/newOrder", {
-        name: uid,
-        qty: Number(stockQuantity),
-        price: Number(stockPrice),
-        mode: "BUY",
-      },{withCredentials: true});
+      await axios.post(
+       `${import.meta.env.VITE_API_URL}/newOrder`,
+  {
+    name: uid,
+    qty: Number(stockQuantity),
+    price: Number(stockPrice),
+    mode: "BUY",
+  },
+  {
+    withCredentials: true,
+  }
+    );
 
       closeBuyWindow();
     } catch (err) {

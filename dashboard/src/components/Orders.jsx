@@ -3,12 +3,18 @@ import { useState,useEffect } from "react";
 import axios from "axios"
 const Orders = () => {
   const [allOrders,setAllOrders] = useState([]);
-
-  useEffect(()=>{
-    axios.get("http://localhost:8080/Orders",{ withCredentials: true}).then((res)=>{
-       setAllOrders(res.data);
+useEffect(() => {
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/Orders`, {
+      withCredentials: true,
     })
-  },[])
+    .then((res) => {
+      setAllOrders(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, []);
 
   
 

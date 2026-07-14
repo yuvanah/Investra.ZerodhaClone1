@@ -6,29 +6,31 @@ const Summary = () => {
   const [username, setUsername] = useState("");
   const [allHoldings, setAllHoldings] = useState([]);
   const [allOrders, setAllOrders] = useState([]);
+useEffect(() => {
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/wallet`, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      setWallet(res.data.wallet);
+      setUsername(res.data.username);
+    })
+    .catch((err) => console.log(err));
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/wallet", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setWallet(res.data.wallet);
-        setUsername(res.data.username);
-      });
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/allHoldings`, {
+      withCredentials: true,
+    })
+    .then((res) => setAllHoldings(res.data))
+    .catch((err) => console.log(err));
 
-    axios
-      .get("http://localhost:8080/allHoldings", {
-        withCredentials: true,
-      })
-      .then((res) => setAllHoldings(res.data));
-
-    axios
-      .get("http://localhost:8080/Orders", {
-        withCredentials: true,
-      })
-      .then((res) => setAllOrders(res.data));
-  }, []);
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/Orders`, {
+      withCredentials: true,
+    })
+    .then((res) => setAllOrders(res.data))
+    .catch((err) => console.log(err));
+}, []);
 
   const totalInvestment = allHoldings.reduce(
     (sum, stock) => sum + stock.avg * stock.qty,

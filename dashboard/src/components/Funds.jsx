@@ -6,38 +6,28 @@ const Funds = () => {
   const [wallet, setWallet] = useState(0);
   const [allHoldings, setAllHoldings] = useState([]);
   const [allOrders, setAllOrders] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/wallet", {
-        withCredentials: true,
-      })
-      .then((res) => setWallet(res.data.wallet))
-      .catch((err) => console.log(err));
-
-    axios
-      .get("http://localhost:8080/allHoldings", {
-        withCredentials: true,
-      })
-      .then((res) => setAllHoldings(res.data))
-      .catch((err) => console.log(err));
-
-    axios
-      .get("http://localhost:8080/Orders", {
-        withCredentials: true,
-      })
-      .then((res) => setAllOrders(res.data))
-      .catch((err) => console.log(err));
-
-    axios
-    .get("http://localhost:8080/wallet", {
+   useEffect(() => {
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/wallet`, {
       withCredentials: true,
     })
-    .then((res) => {
-      setWallet(res.data.wallet);
-    })
+    .then((res) => setWallet(res.data.wallet))
     .catch((err) => console.log(err));
-  }, []);
+
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/allHoldings`, {
+      withCredentials: true,
+    })
+    .then((res) => setAllHoldings(res.data))
+    .catch((err) => console.log(err));
+
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/Orders`, {
+      withCredentials: true,
+    })
+    .then((res) => setAllOrders(res.data))
+    .catch((err) => console.log(err));
+}, []);
 
   const totalHoldings = allHoldings.length;
 

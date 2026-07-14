@@ -6,7 +6,7 @@ const News = () => {
 
  useEffect(() => {
   axios
-    .get("http://localhost:8080/news")
+    .get(`${import.meta.env.VITE_API_URL}/news`)
     .then((res) => {
       setNews(res.data);
     })

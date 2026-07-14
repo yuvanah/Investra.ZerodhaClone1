@@ -11,7 +11,7 @@ const Holdings = () => {
   
 useEffect(() => {
   axios
-    .get("http://localhost:8080/allHoldings", {
+    .get(`${import.meta.env.VITE_API_URL}/allHoldings`, {
       withCredentials: true,
     })
     .then((res) => {
