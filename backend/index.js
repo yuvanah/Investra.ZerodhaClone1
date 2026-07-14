@@ -25,8 +25,8 @@ main().catch((err) =>
 app.use(
   cors({
     origin: [
-      `http://localhost:${port}`,
       "http://localhost:5173",
+      "https://investra-zerodha-clone1-6nx4-xi.vercel.app",
     ],
     credentials: true,
   })
