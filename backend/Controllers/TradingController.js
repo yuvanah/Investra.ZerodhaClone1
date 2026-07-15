@@ -46,6 +46,7 @@ const getAllOrders = async (req, res) => {
   }
 };
 
+
 // Create Buy/Sell Order
 const createOrder = async (req, res) => {
   try {
@@ -87,15 +88,16 @@ const createOrder = async (req, res) => {
       user.wallet -= totalAmount;
 
       if (newHolding) {
-        newHolding.qty += qty;
-
-        const oldInvestment =
-          newHolding.avg * (newHolding.qty - qty);
-
+        const oldQty = newHolding.qty;
+        const oldInvestment = newHolding.avg * oldQty;
         const newInvestment = price * qty;
 
+        newHolding.qty = oldQty + qty;
         newHolding.avg =
           (oldInvestment + newInvestment) / newHolding.qty;
+
+        // Update latest traded price
+        newHolding.price = price;
 
         await newHolding.save();
       } else {
@@ -130,6 +132,9 @@ const createOrder = async (req, res) => {
       }
 
       newHolding.qty -= qty;
+
+      // Keep latest traded price updated
+      newHolding.price = price;
 
       user.wallet += totalAmount;
 
