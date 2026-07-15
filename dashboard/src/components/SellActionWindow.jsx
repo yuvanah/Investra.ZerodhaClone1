@@ -13,12 +13,18 @@ function SellActionWindow({ uid, closeSellWindow }) {
 
   const handleSellClick = async () => {
     try {
-      await axios.post("http://localhost:8080/newOrder", {
-        name: uid,
-        qty: Number(stockQuantity),
-        price: Number(stockPrice),
-        mode: "SELL",
-      },{withCredentials: true});
+      await axios.post(
+  `${import.meta.env.VITE_API_URL}/newOrder`,
+  {
+    name: uid,
+    qty: Number(stockQuantity),
+    price: Number(stockPrice),
+    mode: "SELL",
+  },
+  {
+    withCredentials: true,
+  }
+);
 
       closeSellWindow();
     } catch (err) {
