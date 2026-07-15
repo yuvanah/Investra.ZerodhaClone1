@@ -7,33 +7,35 @@ import TopBar from "./TopBar";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies([]);
+  const [, , removeCookie] = useCookies([]);
   const [username, setUsername] = useState("");
 
- useEffect(() => {
-  const verifyCookie = async () => {
-    if (!cookies.token) {
-      navigate("/login");
-      return;
-    }
+  useEffect(() => {
+    const verifyCookie = async () => {
+      try {
+        const { data } = await axios.post(
+          `${import.meta.env.VITE_API_URL}`,
+          {},
+          {
+            withCredentials: true,
+          }
+        );
 
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_API_URL}`,
-      {},
-      { withCredentials: true }
-    );
+        const { status, user } = data;
 
-    const { status, user } = data;
-    setUsername(user);
+        if (!status) {
+          navigate("/login");
+          return;
+        }
 
-    if (!status) {
-      removeCookie("token");
-      navigate("/login");
-    }
-  };
+        setUsername(user);
+      } catch (err) {
+        navigate("/login");
+      }
+    };
 
-  verifyCookie();
-}, [cookies, navigate, removeCookie]);
+    verifyCookie();
+  }, [navigate]);
 
   const Logout = () => {
     removeCookie("token");
@@ -42,7 +44,7 @@ const Home = () => {
 
   return (
     <>
-      <TopBar Logout={Logout}  Username = {username} />
+      <TopBar Logout={Logout} Username={username} />
       <Dashboard />
     </>
   );
