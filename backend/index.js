@@ -26,7 +26,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://investra-zerodha-clone1-6nx4-xi.vercel.app",
+      "https://investra-zerodha-clone1.vercel.app",
     ],
     credentials: true,
   })
